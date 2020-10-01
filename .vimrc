@@ -74,5 +74,5 @@ nnoremap <leader>= :virtical resize +5<CR>
 nnoremap <leader>c :!g++ -o  %:r.out % -std=c++17<Enter>
 nnoremap <leader>n :tabn<Enter>
 nnoremap <leader>b :tabp<Enter>
-nnoremap <leader>e :tabe /home/mcsbmath/
-nnoremap <leader>v :vsplit /home/mcsbmath/
+nnoremap <leader>e :tabe /home/mbcp/
+nnoremap <leader>v :vsplit /home/mbcp/
