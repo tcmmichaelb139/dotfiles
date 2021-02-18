@@ -1,9 +1,11 @@
 syntax on
 
 set noerrorbells
+set guicursor=
 set scrolloff=999
 set tabstop=4 softtabstop=4
 set shiftwidth=4
+set nohlsearch
 set expandtab
 set smartindent
 set autoindent
@@ -14,6 +16,8 @@ set smartcase
 set hidden
 set noswapfile
 set nobackup
+set undofile
+set undodir=~/.vim/undodir
 set incsearch
 set relativenumber
 set completeopt-=preview
@@ -24,20 +28,16 @@ set splitright
 set noshowmode
 
 
+
 if has('python3')
 
 endif
 
 call plug#begin()
 
-Plug 'tweekmonster/gofmt.vim'
-Plug 'tpope/vim-fugitive'
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'sheerun/vim-polyglot'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-dispatch'
 Plug 'morhetz/gruvbox'
 Plug 'flazz/vim-colorschemes'
 
@@ -85,6 +85,8 @@ nnoremap <leader>b :tabp<Enter>
 nnoremap <leader>e :tabe /home/mbcp/
 nnoremap <leader>v :vsplit /home/mbcp/
 nnoremap <leader>fa gg=G
+nnoremap <leader>y ggyG<CR>
+nnoremap <leader>t :vert term<CR>
 
 noremap! <C-BS> <C-w>
 noremap! <C-h> <C-w>
