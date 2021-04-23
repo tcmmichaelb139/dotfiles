@@ -55,9 +55,10 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 # bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
 # Start Applications
-bindsym $mod+b exec brave
+bindsym $mod+b exec vivaldi-stable
 bindsym $mod+f exec nautilus
-bindsym $mod+s exec flatpak run com.spotify.Client
+bindsym $mod+m exec vlc
+bindsym $mod+t exec gnome-pomodoro
 
 
 # focus_follows_mouse no
@@ -331,14 +332,24 @@ set_from_resource $term_color15    color15
 #}
 
 # hide/unhide i3status bar
-bindsym $mod+m bar mode toggle
+#bindsym $mod+m bar mode toggle
 
 # Theme colors
+# Purple theme
 # class                   border  backgr. text    indic.   child_border
-  client.focused          #A304FF #A304FF #ffffff #FDF6E3
-  client.focused_inactive #966FD6 #966FD6 #ffffff #454948
-  client.unfocused        #966FD6 #966FD6 #ffffff #454948
-  client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
+#  client.focused          #A304FF #A304FF #ffffff #FDF6E3
+#  client.focused_inactive #966FD6 #966FD6 #ffffff #454948
+#  client.unfocused        #966FD6 #966FD6 #ffffff #454948
+#  client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
+#  client.placeholder      #000000 #0c0c0c #ffffff #000000 
+#
+#  client.background       #2B2C2B
+# gruvbox theme
+# class                   border  backgr. text    indic.   child_border
+  client.focused          #d65d0e #d65d0e #ffffff #FDF6E3
+  client.focused_inactive #7c6f64 #7c6f64 #ffffff #454948
+  client.unfocused        #7c6f64 #7c6f64 #ffffff #454948
+  client.urgent           #fbf1c7 #928374 #1ABC9C #268BD2
   client.placeholder      #000000 #0c0c0c #ffffff #000000 
 
   client.background       #2B2C2B
