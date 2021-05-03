@@ -12,4 +12,6 @@ Then run after you install all vim packages
 
 python3 -m pip install --user --upgrade pynvim
 
-go to /.config/nvim/plugged/YouCompleteMe/ and do ./install.sh
+go to /.config/nvim/plugged/YouCompleteMe/ and do ./install.sh --clangd-completer
+
+go to https://github.com/ycm-core/YouCompleteMe to see all possible completers
