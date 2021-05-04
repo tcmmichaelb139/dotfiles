@@ -102,6 +102,9 @@ let g:airline_symbols.dirty= ''
 let g:coc_global_extensions = [
             \'coc-pairs',
             \'coc-clangd',
+            \'coc-syntax',
+            \'coc-highlight',
+            \'coc-pairs',
             \]
 
 inoremap <silent><expr> <TAB>
