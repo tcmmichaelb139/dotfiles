@@ -8,6 +8,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'hzchirs/vim-material'                             " material color themes
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'morhetz/gruvbox'
+Plug 'rafi/awesome-vim-colorschemes'
 
 Plug 'preservim/nerdtree'
 Plug 'mbbill/undotree'
@@ -73,15 +74,19 @@ set signcolumn=yes
 
 "or
 
-let g:material_theme_style = 'ocean'
-colorscheme material
+"let g:material_theme_style = 'ocean'
+"colorscheme material
+
+"or
+
+colorscheme onedark            " afterglow, gruvbox, nord, molokai
 
 hi CursorLineNr gui=bold                                                " make relative number bold
 
 " ------------------ plugin configurations ------------------- "
 
 " airline
-let g:airline_theme='material'
+let g:airline_theme='onedark'
 let g:airline_skip_empty_sections = 1
 let g:airline_section_warning = ''
 let g:airline_section_x=''
