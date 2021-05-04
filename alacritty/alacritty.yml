@@ -20,8 +20,8 @@ dpi:
 
 window:
   padding:
-    x: 5
-    y: 5
+    x: 0
+    y: 0
 
 
 # Display tabs using this many cells (changes require restart)
@@ -49,7 +49,7 @@ font:
     # style: Italic
 
   # Point size of the font
-  size: 13.0
+  size: 11.5
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
   # OS X only: use thin stroke font rendering. Thin strokes are suitable
