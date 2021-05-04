@@ -16,6 +16,8 @@
 ;
 ;==========================================================
 
+;IMPORTANT THE FILE SHOULD BE RENAMED TO 'config' WITHOUT QUOTES
+
 [colors]
 ;background = ${xrdb:color0:#222}
 background = #282828
