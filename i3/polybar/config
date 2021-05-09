@@ -53,6 +53,8 @@ font-2 = siji:pixelsize=10;1
 modules-left = i3
 modules-center = xwindow
 modules-right = alsa powermenu xkeyboard memory cpu wlan temperature date 
+
+;tray-position=right ;disable if wanted
 tray-padding = 0
 
 
