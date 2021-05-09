@@ -5,29 +5,17 @@
 ## define the font for dmenu to be used
 DMENU_FN="Source-Code-Pro-light-15"
 
-# ## background colour for unselected menu-items
-# DMENU_NB="#282828"
-
-# ## textcolour for unselected menu-items
-# DMENU_NF="#fbf1c7"
-
-# ## background colour for selected menu-items
-# DMENU_SB="#d65d0e"
-
-# ## textcolour for selected menu-items
-# DMENU_SF="#fbf1c7"
-
 ## background colour for unselected menu-items
-DMENU_NB="#0f111a"
+DMENU_NB="#2e2f37"
 
 ## textcolour for unselected menu-items
-DMENU_NF="#8f93a2"
+DMENU_NF="#d3d9e3"
 
 ## background colour for selected menu-items
-DMENU_SB="#3a575c"
+DMENU_SB="#6590fd"
 
 ## textcolour for selected menu-items
-DMENU_SF="#8f93a2"
+DMENU_SF="#d3d9e3"
 ## command for the terminal application to be used:
 TERMINAL_CMD="terminal -e"
 
