@@ -64,7 +64,7 @@ ex ()
   fi
 }
 #export PS1="\[\e[31m\][\[\e[m\]\[\e[33m\]\u\[\e[m\]\[\e[31m\]]\[\e[m\]\[\e[31m\][\[\e[m\]\[\e[36m\]\W\[\e[m\]\[\e[31m\]]\[\e[m\] \[\e[32m\]X\[\e[m\] "
-export PS1="\[\e[31m\][\[\e[m\]\[\e[33m\]\W\[\e[m\]\[\e[31m\]]\[\e[m\] "
+export PS1="\[\e[35m\][\[\e[m\]\[\e[34m\]\W\[\e[m\]\[\e[35m\]]\[\e[m\] "
 
 export EDITOR="vim"
 export VISUAL="$EDITOR"
