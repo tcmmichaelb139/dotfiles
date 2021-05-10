@@ -1,0 +1,3 @@
+add
+picom -b --background glx --vsync 
+for intel graphics to auto start
