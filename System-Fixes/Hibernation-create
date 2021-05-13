@@ -1,0 +1,9 @@
+create a swap file
+
+then add 
+"resume=/dev/nvme0n1p3"
+
+'/dev/nvme0n1p3' is the swap file
+
+put this in 
+'/etc/default/grub' in 'GRUB_CMDLINE_LINUX=""' parenthesis
