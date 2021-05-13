@@ -1,3 +1,7 @@
 add
 picom -b --background glx --vsync 
 for intel graphics to auto start
+
+NOTE: Doesn't always work but is the best I could find.
+
+doing the xorg thing doesn't really work more me
