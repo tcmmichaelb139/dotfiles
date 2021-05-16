@@ -1,0 +1,7 @@
+git clone https://github.com/vivien/i3blocks-contrib
+
+and move the folder to the i3blocks folder at:
+
+~/.config/i3blocks/
+
+this way it will work
