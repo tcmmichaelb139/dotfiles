@@ -5,10 +5,9 @@ call plug#begin()
 
 
 Plug 'sheerun/vim-polyglot'
-Plug 'hzchirs/vim-material'                             " material color themes
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'morhetz/gruvbox'
 Plug 'rafi/awesome-vim-colorschemes'
+Plug 'dracula/vim'
 
 Plug 'preservim/nerdtree'
 Plug 'mbbill/undotree'
@@ -26,7 +25,7 @@ call plug#end()
 
 set termguicolors                                                   " opaque background
 set mouse=a                                                         " allows mouse control
-set clipboard+=unnamedplus                                          " use system clipboard by default
+set clipboard+=                                          " use system clipboard by default
 set tabstop=4 softtabstop=4 shiftwidth=4 autoindent smartindent     " tabs indents
 set smarttab expandtab                                              " tabs
 set noerrorbells                                                    " no error bells
@@ -36,7 +35,7 @@ set number                                                          " enables nu
 set nowrap                                                          " no wrapping when cursor gets to the end of the page
 set nobackup undofile undodir=~/.config/nvim/undodir                " no backup file and creates an undodir for all undos
 set relativenumber                                                  " sets lines above and below to amount away from current line
-set completeopt-=preview                                            " for YCM doesn't really do anything
+set completeopt-=preview                                           " for YCM doesn't really do anything
 set cursorline                                                      " sets current line number instead of 0
 set splitright splitbelow                                           " open split to right and bottom
 set noshowmode noshowcmd                                            " doesn't show current mode and last command
@@ -64,24 +63,12 @@ set signcolumn=yes
 
 " ------------------ theming ------------------- "
 
-" let g:material_style = 'oceanic'
-" colorscheme vim-material
+colorscheme jellybeans          " theme for syntaxing
 
-"or
+highlight signcolumn guibg=none
+highlight LineNr guibg=none
 
-" colorscheme gruvbox
-" let g:gruvbox_contrast_dark = 'hard'
-
-"or
-
-"let g:material_theme_style = 'ocean'
-"colorscheme material
-
-"or
-
-colorscheme onedark            " afterglow, gruvbox, nord, molokai
-
-hi CursorLineNr gui=bold                                                " make relative number bold
+hi CursorLineNr gui=bold guibg=none                                               " make relative number bold
 
 " ------------------ plugin configurations ------------------- "
 
@@ -219,4 +206,4 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
-
+ 
