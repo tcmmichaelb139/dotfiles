@@ -1,0 +1,11 @@
+Combined theme of jellybeans and onedark
+
+All credit goes to the creators
+
+go to the jellybeans config and change the line:
+
+let s:background_color = "282c34"
+
+which is line 91 as of 5-15-2021
+
+just use this line instead of the other one
