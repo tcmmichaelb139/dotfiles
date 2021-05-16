@@ -1,0 +1,56 @@
+#  _ _____ _     _            _
+# (_)___ /| |__ | | ___   ___| | _____
+# | | |_ \| '_ \| |/ _ \ / __| |/ / __|
+# | |___) | |_) | | (_) | (__|   <\__ \
+# |_|____/|_.__/|_|\___/ \___|_|\_\___/
+
+align=center
+separator=false
+color=#d3d9e3
+separator_block_width=15
+markup=pango
+border_top=1
+border_right=0
+border_left=0
+border_bottom=0
+
+[battery]
+command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/battery/battery
+interval=1
+LABEL=<span color='#c678dd'>BAT: </span>
+border=#c678dd
+
+[wifi]
+command=iwgetid -r | tr '\n' ' ' && grep $(iwgetid -m | awk '{ printf "%s", $1 }') /proc/net/wireless | awk '{ printf "%i%\n", int($3 * 100 / 70) }'
+instance=wlp11s0f3u1
+interval=5
+label=<span color="#61afef"> </span>
+border=#61afef
+border_top=1
+border_right=0
+border_bottom=0
+border_left=0
+
+[temperature]
+command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/temperature/temperature
+label=<span color="#56b6c2">TEMP: </span>
+interval=10
+border=#56b6c2
+
+[cpu_usage]
+command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/cpu_usage/cpu_usage
+interval=10
+LABEL=<span color="#98c379">CPU: </span>
+border=#98c379
+
+[memory]
+command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/memory/memory
+label=<span color="#e5c07b"> </span>
+interval=30
+border=#e5c07b
+
+[time]
+label=<span color='#e06c75'> </span>
+border=#e06c75
+command=date
+interval=1
