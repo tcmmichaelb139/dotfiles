@@ -1,6 +1,8 @@
+# colors
 autoload -U colors && colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%~%{$fg[red]%}]%{$reset_color%}%b "
+PS1="%B%{$fg[magenta]%}➜ %{$fg[red]%}[%{$fg[blue]%}%c%{$fg[red]%}] %{$fg[magenta]%}✗%{$reset_color%}%b "
 
+# History
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.cache/zsh/history
