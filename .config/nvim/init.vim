@@ -92,11 +92,10 @@ let g:airline_symbols.dirty= ''
 
 "coc
 let g:coc_global_extensions = [
-            \'coc-pairs',
             \'coc-clangd',
             \'coc-syntax',
             \'coc-highlight',
-            \'coc-pairs',
+            "\'coc-pairs',
             \]
 
 inoremap <silent><expr> <TAB>
@@ -129,7 +128,9 @@ autocmd FileType cpp nnoremap <leader>c :!g++ -o a.out % -std=c++17<CR>
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
-nnoremap <leader>l :wincmd l<CR>
+nnoremap <leader>l :wincmd l<CR>            \'coc-pairs',
+96
+
 nnoremap <leader>u :UndotreeShow<CR>
 "nnoremap <leader>f :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <leader>f :NERDTreeToggle<CR>
