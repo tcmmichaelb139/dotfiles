@@ -15,7 +15,7 @@ border_left=0
 border_bottom=0
 
 [battery]
-command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/battery/battery
+command=$HOME/.config/i3blocks/i3blocks-contrib/battery/battery
 interval=1
 LABEL=<span color='#c678dd'>BAT: </span>
 border=#c678dd
@@ -32,19 +32,19 @@ border_bottom=0
 border_left=0
 
 [temperature]
-command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/temperature/temperature
+command=$HOME/.config/i3blocks/i3blocks-contrib/temperature/temperature
 label=<span color="#56b6c2">TEMP: </span>
 interval=10
 border=#56b6c2
 
 [cpu_usage]
-command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/cpu_usage/cpu_usage
+command=$HOME/.config/i3blocks/i3blocks-contrib/cpu_usage/cpu_usage
 interval=10
 LABEL=<span color="#98c379">CPU: </span>
 border=#98c379
 
 [memory]
-command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/memory/memory
+command=$HOME/.config/i3blocks/i3blocks-contrib/memory/memory
 label=<span color="#e5c07b"> </span>
 interval=30
 border=#e5c07b
