@@ -1,3 +1,9 @@
+# export ZSH="/home/tcmb139/.config/zsh/.oh-my-zsh"
+# ZSH_THEME="awesomepanda"
+# plugins=(git)
+
+# source $ZSH/oh-my-zsh.sh
+
 # colors
 autoload -U colors && colors
 PS1="%B%{$fg[magenta]%}➜ %{$fg[red]%}[%{$fg[blue]%}%c%{$fg[red]%}] %{$fg[magenta]%}✗%{$reset_color%}%b "
@@ -55,7 +61,6 @@ alias lsl='ls -l'
 alias pd='pwd'
 alias home='cd ~'
 alias root='cd /'
-alias cp='cd cp'
 alias ..='cd ..'
 alias ...='cd ..; cd ..'
 alias ....='cd ..; cd ..; cd ..'
@@ -67,4 +72,5 @@ export EDITOR='nvim'
 
 #syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 
