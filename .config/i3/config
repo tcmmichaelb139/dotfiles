@@ -12,7 +12,7 @@ default_border pixel 1
 default_floating_border normal
 
 # Hide borders
-hide_edge_borders none
+# hide_edge_borders none
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -28,7 +28,7 @@ bindsym $mod+Return exec alacritty
 bindsym Mod1+q kill
 
 # start program launcher
-bindsym $mod+p exec rofi -show drun
+bindsym $mod+space exec rofi -show drun
 #bindsym $mod+p exec rofi -show run
 
 # launch categorized menu
@@ -44,7 +44,7 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 #exec --no-startup-id pa-applet
 #bindsym $mod+Ctrl+m exec pavucontrol
 # Start Applications
-bindsym $mod+b exec brave-nightly
+bindsym $mod+b exec firefox
 bindsym $mod+f exec nautilus
 bindsym $mod+m exec vlc
 bindsym $mod+t exec gnome-pomodoro
@@ -55,39 +55,35 @@ bindsym Mod1+j focus down
 bindsym Mod1+k focus up
 bindsym Mod1+l focus right
 
-# alternatively, you can use the cursor keys:
-#bindsym $mod+Left focus left
-#bindsym $mod+Down focus down
-#bindsym $mod+Up focus up
-#bindsym $mod+Right focus right
-
 # move focused window
 bindsym Mod1+Shift+h move left
 bindsym Mod1+Shift+j move down
 bindsym Mod1+Shift+k move up
 bindsym Mod1+Shift+l move right
 
-# alternatively, you can use the cursor keys:
-#bindsym $mod+Shift+Left move left
-#bindsym $mod+Shift+Down move down
-#bindsym $mod+Shift+Up move up
-#bindsym $mod+Shift+Right move right
-
-# workspace back and forth (with/without active container)
-#workspace_auto_back_and_forth yes
-#bindsym $mod+b workspace back_and_forth
-#bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
+bindsym $alt+Tab focus output right
 
 # split orientation
-bindsym $mod+h split h;exec notify-send 'tile horizontally'
-bindsym $mod+v split v;exec notify-send 'tile vertically'
+bindsym $mod+h split h
+bindsym $mod+v split v
 #bindsym $mod+q split toggle
 
 # toggle fullscreen mode for the focused container
 bindsym Mod1+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+e layout toggle split
+# bindsym $mod+v layout splitv
+# bindsym $mod+h layout splith
+# bindsym $mod+s layout stacking
+# bindsym $mod+o layout tabbed
+
+# bindsym $mod+Shift+Y split h; layout splitv
+# bindsym $mod+Shift+U split h; layout splith
+# bindsym $mod+Shift+I split h; layout stacking
+# bindsym $mod+Shift+O split h; layout tabbed
+
+# bindsym $mod+p focus parent
+# bindsym $mod+n focus child
 
 # toggle tiling / floating
 bindsym Mod1+Shift+space floating toggle
@@ -107,12 +103,14 @@ bindsym Mod1+minus scratchpad show
 
 set $ws1 1:www
 set $ws2 2:dev
-set $ws3 3:sys
-set $ws4 4:doc
-set $ws5 5:chat
-set $ws6 6:draw
+set $ws3 3:cal
+set $ws4 4:sys
+set $ws5 5:doc
+set $ws6 6:chat
 set $ws7 7:mus
-set $ws8 8:oth
+set $ws8 8:oth1
+set $ws9 9:oth2
+set $ws10 10:oth3
 
 # switch to workspace
 bindsym Mod1+1 workspace $ws1
@@ -123,6 +121,8 @@ bindsym Mod1+5 workspace $ws5
 bindsym Mod1+6 workspace $ws6
 bindsym Mod1+7 workspace $ws7
 bindsym Mod1+8 workspace $ws8
+bindsym Mod1+9 workspace $ws9
+bindsym Mod1+0 workspace $ws10
 
 # Move focused container to workspace
 bindsym Mod1+Shift+1 move container to workspace $ws1
@@ -133,11 +133,13 @@ bindsym Mod1+Shift+5 move container to workspace $ws5
 bindsym Mod1+Shift+6 move container to workspace $ws6
 bindsym Mod1+Shift+7 move container to workspace $ws7
 bindsym Mod1+Shift+8 move container to workspace $ws8
+bindsym Mod1+Shift+9 move container to workspace $ws9
+bindsym Mod1+Shift+0 move container to workspace $ws0
 
 # Open applications on specific workspaces
 assign [class="vlc"] $ws7
-assign [class="Joplin"] $ws4
-assign [class="Discord"] $ws5
+assign [class="Joplin"] $ws5
+assign [class="Discord"] $ws6
 
 # Openy specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -175,9 +177,6 @@ bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
@@ -246,26 +245,25 @@ bar {
     status_command i3blocks
     colors {
         background #282c34
-        statusline #000000
-        separator  #454947
+        statusline #6590fd
+        separator  #6590fd
 
 #                          border  backgr. text
         focused_workspace  #282c34 #282c34 #6590fd
         active_workspace   #282c34 #282c34 #6590fd
         inactive_workspace #282c34 #222D31 #d3d9e3
-        binding_mode       #6590fd #282c34 #d3d9e3
         urgent_workspace   #6590fd #282c34 #bf616a
     }
 }
 
-# class                   border  backgr. text    indic.   child_border
-  client.focused          #6590fd #6590fd #d3d9e3 #FDF6E3
-  client.focused_inactive #282c34 #282c34 #d3d9e3 #454948
-  client.unfocused        #282c34 #282c34 #d3d9e3 #454948
-  client.urgent           #bf616a #bf616a #d3d9e3 #268BD2
-  client.placeholder      #000000 #0c0c0c #ffffff #000000 
+# class                   border  backgr. text   
+  client.focused          #6590fd #6590fd #d3d9e3
+  client.focused_inactive #282c34 #282c34 #d3d9e3 
+  client.unfocused        #282c34 #282c34 #d3d9e3
+  client.urgent           #bf616a #bf616a #d3d9e3 
+  # client.placeholder      #000000 #0c0c0c #ffffff 
 
-  client.background       #0f111a
+  # client.background       #0f111a
 
 #############################
 ### settings for i3-gaps: ###
@@ -277,3 +275,4 @@ gaps outer 0
 smart_gaps on
 
 smart_borders on
+
