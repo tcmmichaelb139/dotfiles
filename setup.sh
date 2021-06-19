@@ -48,4 +48,16 @@ echo "Copied alacritty config"
 echo "Installing i3block dependencies"
 pacman -S acpi lm_sensors sysstat perl --noconfirm
 
+echo "Installing packages"
+pacman -S zsh firefox neovim alacritty nautilus --noconfirm
+
+echo "Installing yay"
+pacman -S base-devel --noconfirm
+cd /opt
+git clone https://aur.archlinux.org/yay-git.git
+chown -R $USER:$USER ./yay-git
+cd yay-git
+makepkg -si --noconfirm
+
+cd $HOME
 echo "Finished"
