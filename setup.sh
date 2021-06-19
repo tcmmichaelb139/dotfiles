@@ -1,10 +1,8 @@
-cd $HOME
-mkdir .config
-
 cd $HOME/dotfiles
-mv .profile $HOME/.profile
+mv .profile $HOME/
 echo "Copied .profile"
 
+cd $HOME
 mkdir .config
 cd .config
 
@@ -27,24 +25,24 @@ cd i3blocks
 git clone https://github.com/vivien/i3blocks-contrib
 
 cd $HOME/dotfiles/.config/i3
-mv config $HOME/.config/i3/config
+mv config $HOME/.config/i3/
 echo "Copied i3 config"
 
 cd $HOME/dotfiles/.config/i3blocks
-mv config $HOME/.config/i3blocks/config
+mv config $HOME/.config/i3blocks/
 echo "Copied i3blocks config"
 
 cd $HOME/dotfiles/.config/zsh/
-mv .zshrc $HOME/.config/zsh/.zshrc
+mv .zshrc $HOME/.config/zsh/
 
 cd $HOME/dotfiles/.config/nvim/
-mv init.vim $HOME/.config/nvim/init.vim
+mv init.vim $HOME/.config/nvim/
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 echo "Copied init.vim and installed vim-plug"
 
 cd $HOME/dotfiles/.config/alacritty/
-mv alacritty.yml $HOME/.config/alacritty/alacritty.yml
+mv alacritty.yml $HOME/.config/alacritty/
 echo "Copied alacritty config"
 
 echo "Installing i3block dependencies"
