@@ -1,3 +1,6 @@
+cd $HOME
+mkdir .config
+
 cd $HOME/dotfiles
 mv .profile $HOME/.profile
 echo "Copied .profile"
