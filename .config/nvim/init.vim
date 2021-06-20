@@ -5,9 +5,7 @@ call plug#begin()
 
 
 Plug 'sheerun/vim-polyglot'                             " nice syntax highlighting
-Plug 'dracula/vim'                                      " dracula theme
 Plug 'ghifarit53/tokyonight-vim'
-Plug 'sainnhe/sonokai'
 Plug 'joshdick/onedark.vim'
 Plug 'sainnhe/gruvbox-material'
 
@@ -15,6 +13,8 @@ Plug 'mbbill/undotree'
 Plug 'Yggdroot/indentLine'                              " show indentation lines
 Plug 'tpope/vim-commentary'                             " better commenting
 Plug 'psliwka/vim-smoothie'                             " very smooth scrolling
+
+"nerdtree plugins + nerdtree
 Plug 'preservim/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
@@ -65,11 +65,13 @@ set updatetime=300
 set shortmess+=c
 set signcolumn=yes
 
-" ------------------ theming ------------------- "
+"" ------------------ theming ------------------- "
 
 "colorscheme
 let g:tokyonight_style = "storm"
-colorscheme tokyonight  
+" let g:gruvbox_material_background = 'hard'
+" set background=dark
+colorscheme tokyonight
 
 set tabline=%!MyTabLine()  " custom tab pages line
 function! MyTabLine() " acclamation to avoid conflict
@@ -143,7 +145,7 @@ function! MyTabLine() " acclamation to avoid conflict
     return s
 endfunction
 
-hi CursorLineNr gui=bold                                            " make relative number bold
+" hi CursorLineNr gui=bold                                            " make relative number bold
 
 " ------------------ plugin configurations ------------------- "
 
@@ -179,16 +181,19 @@ set statusline+=
 let g:indentLine_enabled = 1
 let g:indentLine_setColors = 1
 let g:indentLine_setConceal = 1
+let g:indentLine_char = '│'
+" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 "nerdtree
 let g:NERDTreeWinPos = "right"
+
 
 " ------------------ keybinds/commands ------------------- "
 
 let mapleader = " "
 
 "compile C++ code
-autocmd FileType cpp nnoremap <leader>c :w <bar> !g++ -o a.out % -std=c++17<CR>
+autocmd FileType cpp nnoremap <leader>c :w <bar> !g++ -o a.out % -std=c++17 -O2 -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion<CR>
 
 augroup numbertoggle
     autocmd!
@@ -224,7 +229,7 @@ map <leader>to :tabonly<cr>
 " nnoremap <leader>tc :bd!<CR>
 
 "splitting
-nnoremap Th :vs <bar> :term<CR>
+nnoremap Th :vs <bar> :term<bar> :resize 20<CR>
 nnoremap Tv :split <bar> :resize -5 <bar> :term<CR>
 
 "moveing lines
