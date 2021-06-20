@@ -8,15 +8,16 @@ set $mod Mod4
 # workspace_layout tabbed <stacking|tabbed>
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-default_border pixel 1
-default_floating_border normal
+new_window normal
+new_float normal
 
 # Hide borders
 # hide_edge_borders none
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font xft:Source Code Pro
+# font xft: Source Code Pro 10
+font xft: Fixedsys Excelsior 3.01 10
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
@@ -47,7 +48,6 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 bindsym $mod+b exec firefox
 bindsym $mod+f exec nautilus
 bindsym $mod+m exec vlc
-bindsym $mod+t exec gnome-pomodoro
 
 # change focus
 bindsym Mod1+h focus left
@@ -72,18 +72,9 @@ bindsym $mod+v split v
 bindsym Mod1+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-# bindsym $mod+v layout splitv
-# bindsym $mod+h layout splith
-# bindsym $mod+s layout stacking
-# bindsym $mod+o layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+t layout tabbed
 
-# bindsym $mod+Shift+Y split h; layout splitv
-# bindsym $mod+Shift+U split h; layout splith
-# bindsym $mod+Shift+I split h; layout stacking
-# bindsym $mod+Shift+O split h; layout tabbed
-
-# bindsym $mod+p focus parent
-# bindsym $mod+n focus child
 
 # toggle tiling / floating
 bindsym Mod1+Shift+space floating toggle
@@ -144,6 +135,7 @@ assign [class="Discord"] $ws6
 # Openy specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="calamares"] floating enable border normal
+for_window [title="Alacritty"] border normal
 for_window [class="Clipgrab"] floating enable
 for_window [title="File Transfer*"] floating enable
 for_window [class="fpakman"] floating enable
@@ -233,34 +225,49 @@ exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
+# Colors
+
+set $yellow     #e0af68
+set $orange     #ff9e64 
+set $red        #f7768e
+set $magenta    #bb9af7
+set $blue       #7aa2f7
+set $green      #73daca
+set $black      #414868
+set $bgstorm    #24283b
+set $bgnight    #1a1b26
+set $fg         #a9b1d6
+
 bar {
-    position top
+    position bottom
     bindsym button4         nop
     bindsym button5         nop
     tray_output             primary
     separator_symbol        "·"
     workspace_buttons       yes
     strip_workspace_numbers yes
-    font pango: Source Code Pro 10
+    # font pango: Source Code Pro 10
+    font pango: Fixedsys Excelsior 3.01 10
     status_command i3blocks
     colors {
-        background #282c34
-        statusline #6590fd
-        separator  #6590fd
+        background $bgstorm
+        statusline $blue
+        separator  $blue
 
 #                          border  backgr. text
-        focused_workspace  #282c34 #282c34 #6590fd
-        active_workspace   #282c34 #282c34 #6590fd
-        inactive_workspace #282c34 #222D31 #d3d9e3
-        urgent_workspace   #6590fd #282c34 #bf616a
+        focused_workspace  $bgstorm $bgstorm $magenta
+        active_workspace   $bgstorm $bgstorm $magenta
+        inactive_workspace $bgstorm $bgstorm $fg
+        urgent_workspace   $bgstorm $bgstorm $red
+
     }
 }
 
 # class                   border  backgr. text   
-  client.focused          #6590fd #6590fd #d3d9e3
-  client.focused_inactive #282c34 #282c34 #d3d9e3 
-  client.unfocused        #282c34 #282c34 #d3d9e3
-  client.urgent           #bf616a #bf616a #d3d9e3 
+  client.focused          $magenta $magenta $black
+  client.focused_inactive $bgstorm $bgstorm $fg 
+  client.unfocused        $bgstorm $bgstorm $fg
+  client.urgent           $red     $red     $black 
   # client.placeholder      #000000 #0c0c0c #ffffff 
 
   # client.background       #0f111a
@@ -269,10 +276,10 @@ bar {
 ### settings for i3-gaps: ###
 #############################
 
-gaps inner 2
+gaps inner 0
 gaps outer 0
 
-smart_gaps on
+# smart_gaps on
 
-smart_borders on
+# smart_borders on
 
