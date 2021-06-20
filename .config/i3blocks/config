@@ -15,42 +15,42 @@ border_left=0
 border_bottom=0
 
 [battery]
-command=$HOME/.config/i3blocks/i3blocks-contrib/battery/battery
+command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/battery/battery
 interval=1
-LABEL=<span color='#c678dd'>BAT: </span>
-border=#c678dd
+LABEL=<span color='#e0af68'>BAT: </span>
+border=#e0af68
 
 [wifi]
 command=iwgetid -r | tr '\n' ' ' && grep $(iwgetid -m | awk '{ printf "%s", $1 }') /proc/net/wireless | awk '{ printf "%i%\n", int($3 * 100 / 70) }'
 instance=wlp11s0f3u1
 interval=5
-label=<span color="#61afef"> </span>
-border=#61afef
+label=<span color="#ff9e64"> </span>
+border=#ff9e64
 border_top=1
 border_right=0
 border_bottom=0
 border_left=0
 
 [temperature]
-command=$HOME/.config/i3blocks/i3blocks-contrib/temperature/temperature
-label=<span color="#56b6c2">TEMP: </span>
+command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/temperature/temperature
+label=<span color="#f7768e">TEMP: </span>
 interval=10
-border=#56b6c2
+border=##f7768e
 
 [cpu_usage]
-command=$HOME/.config/i3blocks/i3blocks-contrib/cpu_usage/cpu_usage
+command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/cpu_usage/cpu_usage
 interval=10
-LABEL=<span color="#98c379">CPU: </span>
-border=#98c379
+LABEL=<span color="#bb9af7">CPU: </span>
+border=#bb9af7
 
 [memory]
-command=$HOME/.config/i3blocks/i3blocks-contrib/memory/memory
-label=<span color="#e5c07b"> </span>
+command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/memory/memory
+label=<span color="#7aa2f7">RAM: </span>
 interval=30
-border=#e5c07b
+border=#7aa2f7
 
 [time]
-label=<span color='#e06c75'> </span>
-border=#e06c75
+label=<span color='#73daca'> </span>
+border=#73daca
 command=date
 interval=1
