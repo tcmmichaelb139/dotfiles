@@ -38,7 +38,7 @@ set nohlsearch incsearch smartcase                                  " highlight 
 set number                                                          " enables numbers to the left
 set nowrap                                                          " no wrapping when cursor gets to the end of the page
 set nobackup undofile undodir=~/.config/nvim/undodir                " no backup file and creates an undodir for all undos
-" set relativenumber                                                  " sets lines above and below to amount away from current line
+set relativenumber                                                  " sets lines above and below to amount away from current line
 set completeopt-=preview                                            " for YCM doesn't really do anything
 set cursorline                                                      " sets current line number instead of 0
 set splitright splitbelow                                           " open split to right and bottom
@@ -48,6 +48,7 @@ set backspace=indent,eol,start                                      " sensible b
 set emoji                                                           " enables emojis
 set conceallevel=2                                                  " do it doesn't break indentation plugin
 set showtabline=2                                                   " always show tablines
+set nocompatible
 
 " performance tweaks
 set nocursorline
@@ -145,8 +146,6 @@ function! MyTabLine() " acclamation to avoid conflict
     return s
 endfunction
 
-" hi CursorLineNr gui=bold                                            " make relative number bold
-
 " ------------------ plugin configurations ------------------- "
 
 " statusline
@@ -193,7 +192,39 @@ let g:NERDTreeWinPos = "right"
 let mapleader = " "
 
 "compile C++ code
-autocmd FileType cpp nnoremap <leader>c :w <bar> !g++ -o a.out % -std=c++17 -O2 -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion<CR>
+autocmd FileType cpp nnoremap <leader>cc :w <bar> !g++ -o a.out % -std=c++17 -O2 -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion<CR>
+
+"compile and run
+function! TermWrapper(command) abort
+	if !exists('g:split_term_style') | let g:split_term_style = 'vertical' | endif
+	if g:split_term_style ==# 'vertical'
+		let buffercmd = 'vnew'
+	elseif g:split_term_style ==# 'horizontal'
+		let buffercmd = 'new'
+	else
+		echoerr 'ERROR! g:split_term_style is not a valid value (must be ''horizontal'' or ''vertical'' but is currently set to ''' . g:split_term_style . ''')'
+		throw 'ERROR! g:split_term_style is not a valid value (must be ''horizontal'' or ''vertical'')'
+	endif
+	exec buffercmd
+	exec 'term ' . a:command
+	if exists('g:split_term_resize_cmd')
+		exec g:split_term_resize_cmd
+	endif
+	exec 'setlocal nornu nonu'
+	exec 'startinsert'
+endfunction
+
+let g:split_term_style = 'horizontal'
+let g:split_term_resize_cmd = 'resize 20'
+
+command! -nargs=0 CompileAndRun call TermWrapper(printf('g++ -std=c++17 %s && ./a.out', expand('%')))
+command! -nargs=1 CompileAndRunWithFile call TermWrapper(printf('g++ -std=c++17 %s && ./a.out < %s', expand('%'), <args>))
+autocmd FileType cpp nnoremap <leader>cr :w <bar> :CompileAndRun<CR>
+
+autocmd BufNewFile,BufRead *.txt set wrap
+
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
 
 augroup numbertoggle
     autocmd!
@@ -254,6 +285,7 @@ let g:coc_global_extensions = [
             \'coc-highlight',
             \'coc-vimlsp',
             \'coc-python',
+            \'coc-pairs',
             \]
 
 " Always show the signcolumn, otherwise it would shift the text each time
