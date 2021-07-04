@@ -324,7 +324,6 @@ augroup numbertoggle " {{{
 augroup END
 " }}} 
 
-inoremap { {}<Left>
 inoremap {<Enter> {<CR>}<Esc>O
 inoremap {{ {
 inoremap {} {}
