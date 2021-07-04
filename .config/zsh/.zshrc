@@ -6,7 +6,8 @@
 
 # colors
 autoload -U colors && colors
-PS1="%B%{$fg[magenta]%}➜ %{$fg[red]%}[%{$fg[blue]%}%c%{$fg[red]%}] %{$fg[magenta]%}✗%{$reset_color%}%b "
+# PS1="%B%{$fg[magenta]%}➜ %{$fg[yellow]%}[%{$fg[blue]%}%c%{$fg[yellow]%}] %{$fg[magenta]%}✗%{$reset_color%}%b "
+PS1="%B%{$fg[magenta]%}➜  %{$fg[blue]%}%c%{$fg[magenta]%} ✗%{$reset_color%}%b "
 
 # History
 HISTSIZE=10000
@@ -17,6 +18,7 @@ bindkey -v
 export KEYTIMEOUT=1
 
 bindkey '^H' backward-kill-word
+bindkey '^l' autosuggest-accept
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -24,6 +26,13 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
+
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -58,7 +67,6 @@ alias cs='clear;ls'
 alias pd='pwd'
 alias lsa='ls -a'
 alias lsl='ls -l'
-alias pd='pwd'
 alias home='cd ~'
 alias root='cd /'
 alias ..='cd ..'
