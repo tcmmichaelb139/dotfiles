@@ -1,43 +1,34 @@
 syntax on
 
-" ------------------ plugins ------------------- "
+"" ------------------ plugins ------------------- {{{"
 call plug#begin()
 
-
-Plug 'sheerun/vim-polyglot'                             " nice syntax highlighting
-Plug 'ghifarit53/tokyonight-vim'
-Plug 'joshdick/onedark.vim'
-Plug 'sainnhe/gruvbox-material'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 
 Plug 'mbbill/undotree'
-Plug 'Yggdroot/indentLine'                              " show indentation lines
 Plug 'tpope/vim-commentary'                             " better commenting
-Plug 'psliwka/vim-smoothie'                             " very smooth scrolling
 
-"nerdtree plugins + nerdtree
-Plug 'preservim/nerdtree'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'ryanoasis/vim-devicons'
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ThePrimeagen/vim-be-good'
 
 Plug 'tweekmonster/startuptime.vim'
 
 call plug#end()
+"}}}
 
-" ------------------ general config ------------------- "
+"" ------------------ general config ------------------- {{{"
 filetype plugin indent on
-set gfn=Fixedsys:h10
 set termguicolors                                                   " opaque background
 set clipboard+=unnamedplus                                          " use system clipboard by defaul
 set tabstop=4 softtabstop=4 shiftwidth=4 autoindent                 " tabs indents
 set expandtab
-set noerrorbells                                                    " no error bells
+set noeb                                                   " no error bells
 set scrolloff=10                                                    " scrolls the hole page when at the 10 lines from the bottom
 set nohlsearch incsearch smartcase                                  " highlight text which searching
 set number                                                          " enables numbers to the left
 set nowrap                                                          " no wrapping when cursor gets to the end of the page
-set nobackup undofile undodir=~/.config/nvim/undodir                " no backup file and creates an undodir for all undos
+set noswapfile nobackup undofile undodir=~/.cache/nvim/undodir                " no backup file and creates an undodir for all undos
 set relativenumber                                                  " sets lines above and below to amount away from current line
 set completeopt-=preview                                            " for YCM doesn't really do anything
 set cursorline                                                      " sets current line number instead of 0
@@ -48,33 +39,146 @@ set backspace=indent,eol,start                                      " sensible b
 set emoji                                                           " enables emojis
 set conceallevel=2                                                  " do it doesn't break indentation plugin
 set showtabline=2                                                   " always show tablines
-set nocompatible
-
-" performance tweaks
+set title
+set mouse=a
+set foldmethod=marker
 set nocursorline
 set nocursorcolumn
-set lazyredraw
-set re=1
-set synmaxcol=180
-set redrawtime=10000
 
-" required for coc set hidden
 set nobackup
 set nowritebackup
 set cmdheight=1
-set updatetime=300
+set updatetime=200
 set shortmess+=c
 set signcolumn=yes
 
-"" ------------------ theming ------------------- "
+set cot=menuone,noinsert,noselect shm+=c
+"}}}
 
-"colorscheme
-let g:tokyonight_style = "storm"
-" let g:gruvbox_material_background = 'hard'
-" set background=dark
-colorscheme tokyonight
+" theme {{{
+" let g:colors_name = "tokyonight-storm"
+set background=dark
 
-set tabline=%!MyTabLine()  " custom tab pages line
+let s:red       = { "gui": "#f7768e", "cterm": "203" }
+let s:number    = { "gui": "#ff9e64", "cterm": "215" }
+let s:yellow    = { "gui": "#e0af68", "cterm": "179" }
+let s:strclass  = { "gui": "#9ece6a", "cterm": "107" }
+let s:green     = { "gui": "#73daca", "cterm": "107" }
+let s:litstr    = { "gui": "#b4f9f8", "cterm": "" }
+let s:support   = { "gui": "#2ac3de", "cterm": "" }
+let s:cyan      = { "gui": "#7dcfff", "cterm": "" }
+let s:blue      = { "gui": "#7aa2f7", "cterm": "110" }
+let s:magenta   = { "gui": "#bb9af7", "cterm": "176" }
+let s:white     = { "gui": "#c0caf5", "cterm": "15" }
+let s:fg        = { "gui": "#a9b1d6", "cterm": "250" }
+let s:markdown  = { "gui": "#9aa5ce", "cterm": "" }
+let s:visual    = { "gui": "#32344a", "cterm": "237" }
+let s:comment   = { "gui": "#565f89", "cterm": "" }
+let s:black     = { "gui": "#414868", "cterm": "" }
+let s:bg        = { "gui": "#24283b", "cterm": "" }
+let s:nbg       = { "gui": "#1a1b26", "cterm": ""}
+
+let s:check     = { "gui": "#ffffff", "cterm": "" }
+
+function! s:h(group, style)
+  execute "highlight" a:group
+        \ "guifg="   (has_key(a:style, "fg")    ? a:style.fg.gui   : "NONE")
+        \ "guibg="   (has_key(a:style, "bg")    ? a:style.bg.gui   : "NONE")
+        \ "guisp="   (has_key(a:style, "sp")    ? a:style.sp.gui   : "NONE")
+        \ "gui="     (has_key(a:style, "gui")   ? a:style.gui      : "NONE")
+        " \ "ctermfg=" (has_key(a:style, "fg")    ? a:style.fg.cterm : "NONE")
+        " \ "ctermbg=" (has_key(a:style, "bg")    ? a:style.bg.cterm : "NONE")
+        " \ "cterm="   (has_key(a:style, "cterm") ? a:style.cterm    : "NONE")
+endfunction
+
+call s:h("Comment", { "fg": s:comment, "gui": "italic"}) ", "cterm": "italic" }) " any comment
+call s:h("Constant", { "fg": s:number }) " any constant
+call s:h("String", { "fg": s:strclass }) " a string constant: "this is a string"
+call s:h("Character", { "fg": s:strclass }) " a character constnt: 'c', '\n'
+call s:h("Number", { "fg": s:number }) " a number constant: 234, 0xff
+call s:h("Boolean", { "fg": s:number }) " a boolean constant: TRUE, false
+call s:h("Float", { "fg": s:number }) " a floating point constant: 2.3e10
+call s:h("Identifier", { "fg": s:blue }) " any variable name
+call s:h("Function", { "fg": s:cyan }) " function name (also: methods for classes)
+call s:h("Statement", { "fg": s:magenta }) " any statement
+call s:h("Conditional", { "fg": s:magenta }) " if, then, else, endif, switch, etc.
+call s:h("Repeat", { "fg": s:magenta }) " for, do, while, etc.
+call s:h("Label", { "fg": s:blue }) " case, default, etc.
+call s:h("Operator", { "fg": s:cyan }) " sizeof", "+", "*", etc.
+call s:h("Keyword", { "fg": s:blue }) " any other keyword
+call s:h("Exception", { "fg": s:magenta }) " try, catch, throw
+call s:h("PreProc", { "fg": s:blue }) " generic Preprocessor
+call s:h("Include", { "fg": s:cyan }) " preprocessor #include
+call s:h("Define", { "fg": s:cyan }) " preprocessor #define
+call s:h("Macro", { "fg": s:magenta }) " same as Define
+call s:h("PreCondit", { "fg": s:blue }) " preprocessor #if, #else, #endif, etc.
+call s:h("Type", { "fg": s:blue }) " int, long, char, etc.
+call s:h("StorageClass", { "fg": s:magenta }) " static, register, volatile, etc.
+call s:h("Structure", { "fg": s:blue }) " struct, union, enum, etc.
+call s:h("Typedef", { "fg": s:cyan }) " A typedef
+call s:h("Special", { "fg": s:blue }) " any special symbol
+call s:h("SpecialChar", { "fg": s:number }) " special character in a constant
+call s:h("Tag", {}) " you can use CTRL-] on this
+call s:h("Delimiter", {}) " character that needs attention
+call s:h("SpecialComment", { "fg": s:comment }) " special things inside a comment
+call s:h("Debug", {}) " debugging statements
+call s:h("Underlined", { "gui": "underline" }) " text that stands out, HTML links
+call s:h("Ignore", {}) " left blank, hidden
+call s:h("Error", { "fg": s:red }) " any erroneous construct
+call s:h("Todo", { "fg": s:magenta }) " anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+
+
+call s:h("ColorColumn", {}) " used for the columns set with 'colorcolumn'
+call s:h("Conceal", {}) " placeholder characters substituted for concealed text (see 'conceallevel')
+call s:h("Cursor", {}) " the character under the cursor
+call s:h("CursorIM", {}) " like Cursor, but used when in IME mode
+call s:h("CursorColumn", {}) " the screen column that the cursor is in when 'cursorcolumn' is set
+call s:h("Directory", { "fg": s:blue }) " directory names (and other special names in listings)
+call s:h("DiffAdd", { "bg": s:green, "fg": s:black }) " diff mode: Added line
+call s:h("DiffChange", { "fg": s:yellow }) " diff mode: Changed line
+call s:h("DiffDelete", { "bg": s:red, "fg": s:black }) " diff mode: Deleted line
+call s:h("DiffText", { "bg": s:yellow, "fg": s:black }) " diff mode: Changed text within a changed line
+call s:h("ErrorMsg", { "fg": s:red }) " error messages on the command line
+call s:h("VertSplit", { "fg": s:nbg }) " the column separating vertically split windows
+call s:h("Folded", { "fg": s:comment }) " line used for closed folds
+call s:h("FoldColumn", {}) " 'foldcolumn'
+call s:h("SignColumn", {}) " column where signs are displayed
+call s:h("IncSearch", { "fg": s:yellow, "bg": s:comment }) " 'incsearch' highlighting; also used for the text replaced with ":s///c"
+call s:h("LineNr", { "fg": s:comment }) " Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+call s:h("CursorLineNr", {}) " Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+call s:h("MatchParen", { "fg": s:blue, "gui": "underline"}) " The character under the cursor or just before it, if it is a paired bracket, and its match.
+call s:h("ModeMsg", {}) " 'showmode' message (e.g., "-- INSERT --")
+call s:h("MoreMsg", {}) " more-prompt
+call s:h("NonText", { "fg": s:magenta }) " '~' and '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line).
+call s:h("Pmenu", {}) " Popup menu: normal item.
+call s:h("PmenuSel", {}) " Popup menu: selected item.
+call s:h("PmenuSbar", {}) " Popup menu: scrollbar.
+call s:h("PmenuThumb", { "bg": s:white }) " Popup menu: Thumb of the scrollbar.
+call s:h("Question", { "fg": s:magenta }) " hit-enter prompt and yes/no questions
+call s:h("QuickFixLine", {}) " Current quickfix item in the quickfix window.
+call s:h("Search", { "fg": s:black, "bg": s:yellow }) " Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
+call s:h("SpecialKey", {}) " Meta and special keys listed with ":map", also for text used to show unprintable characters in the text, 'listchars'. Generally: text that is displayed differently from what it really is.
+call s:h("SpellBad", { "fg": s:red, "gui": "underline" }) " Word that is not recognized by the spellchecker. This will be combined with the highlighting used otherwise.
+call s:h("SpellCap", { "fg": s:number }) " Word that should start with a capital. This will be combined with the highlighting used otherwise.
+call s:h("SpellLocal", {}) " Word that is recognized by the spellchecker as one that is used in another region. This will be combined with the highlighting used otherwise.
+call s:h("SpellRare", {}) " Word that is recognized by the spellchecker as one that is hardly ever used. spell This will be combined with the highlighting used otherwise.
+call s:h("StatusLine", { "fg": s:fg}) " status line of current window
+call s:h("StatusLineNC", { "fg": s:comment }) " status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+call s:h("StatusLineTerm", { "fg": s:fg }) " status line of current :terminal window
+call s:h("StatusLineTermNC", { "fg": s:comment }) " status line of non-current :terminal window
+call s:h("TabLine", { "fg": s:fg }) " tab pages line, not active tab page label
+call s:h("TabLineFill", {}) " tab pages line, where there are no labels
+call s:h("TabLineSel", { "fg": s:magenta }) " tab pages line, active tab page label
+call s:h("Terminal", { "fg": s:white, "bg": s:black }) " terminal window (see terminal-size-color)
+call s:h("Title", { "fg": s:green }) " titles for output from ":set all", ":autocmd" etc.
+call s:h("Visual", { "bg": s:visual }) " Visual mode selection
+call s:h("VisualNOS", { "bg": s:visual }) " Visual mode selection when vim is "Not Owning the Selection". Only X11 Gui's gui-x11 and xterm-clipboard supports this.
+call s:h("WarningMsg", { "fg": s:yellow }) " warning messages
+call s:h("WildMenu", { "fg": s:black, "bg": s:blue }) " current match in 'wildmenu' completion
+
+"}}}
+
+set tabline=%!MyTabLine()  " {{{
 function! MyTabLine() " acclamation to avoid conflict
     let s = '' " complete tabline goes here
     " loop through each tab page
@@ -145,10 +249,9 @@ function! MyTabLine() " acclamation to avoid conflict
     endif
     return s
 endfunction
+" }}}
 
-" ------------------ plugin configurations ------------------- "
-
-" statusline
+" statusline {{{
 let g:currentmode={
             \ 'n'  : 'Normal',
             \ 'v'  : 'Visual',
@@ -175,26 +278,16 @@ set statusline+=\ [%p%%]
 set statusline+=\ [%l:%c]\ "
 set statusline+=%#TabLineSel#
 set statusline+=
+"}}}
 
-"indentLine
-let g:indentLine_enabled = 1
-let g:indentLine_setColors = 1
-let g:indentLine_setConceal = 1
-let g:indentLine_char = '│'
-" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-
-"nerdtree
-let g:NERDTreeWinPos = "right"
-
-
-" ------------------ keybinds/commands ------------------- "
+"" ------------------ keybinds/commands ------------------- " {{{
 
 let mapleader = " "
 
 "compile C++ code
-autocmd FileType cpp nnoremap <leader>cc :w <bar> !g++ -o a.out % -std=c++17 -O2 -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion<CR>
+autocmd FileType cpp nnoremap <leader>cc :w <bar> !g++ -o a.out % -std=c++17 -O2 -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion -fsanitize=undefined<CR>
 
-"compile and run
+"compile and run {{{
 function! TermWrapper(command) abort
 	if !exists('g:split_term_style') | let g:split_term_style = 'vertical' | endif
 	if g:split_term_style ==# 'vertical'
@@ -212,25 +305,29 @@ function! TermWrapper(command) abort
 	endif
 	exec 'setlocal nornu nonu'
 	exec 'startinsert'
-endfunction
+endfunction 
+" }}}
 
 let g:split_term_style = 'horizontal'
 let g:split_term_resize_cmd = 'resize 20'
 
-command! -nargs=0 CompileAndRun call TermWrapper(printf('g++ -std=c++17 %s && ./a.out', expand('%')))
+command! -nargs=0 CompileAndRun call TermWrapper(printf('g++ -std=c++17 %s -O2 -Wall -fsanitize=undefined && ./a.out', expand('%')))
 command! -nargs=1 CompileAndRunWithFile call TermWrapper(printf('g++ -std=c++17 %s && ./a.out < %s', expand('%'), <args>))
 autocmd FileType cpp nnoremap <leader>cr :w <bar> :CompileAndRun<CR>
 
 autocmd BufNewFile,BufRead *.txt set wrap
 
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
-
-augroup numbertoggle
+augroup numbertoggle " {{{
     autocmd!
     autocmd BufEnter,FocusGained,InsertLeave * set rnu
     autocmd BufLeave,FocusLost,InsertEnter * set nornu
 augroup END
+" }}} 
+
+inoremap { {}<Left>
+inoremap {<Enter> {<CR>}<Esc>O
+inoremap {{ {
+inoremap {} {}
 
 "movement keybinds
 nnoremap <leader>h :wincmd h<CR>
@@ -240,9 +337,6 @@ nnoremap <leader>l :wincmd l<CR>
 
 "undotree
 nnoremap <leader>u :UndotreeShow<CR>
-
-"nerdtree
-nnoremap <leader>f :NERDTreeToggle<CR>
 
 "sizing
 nnoremap <leader>- :vertical resize -5<CR>
@@ -270,106 +364,77 @@ vnoremap K :m '>-2<CR>gv=gv
 "Ctrl+backspace
 noremap! <C-BS> <C-w>
 noremap! <C-h> <C-w>
+"}}}
 
-if has("patch-8.1.1564")
-    " Recently vim can merge signcolumn and number column into one
-    set signcolumn=number
-else
-    set signcolumn=yes
-endif
+"lsp config {{{
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_matching_smart_case = 1
+let g:completion_trigger_on_delete = 1
 
-"coc
-let g:coc_global_extensions = [
-            \'coc-clangd',
-            \'coc-syntax',
-            \'coc-highlight',
-            \'coc-vimlsp',
-            \'coc-python',
-            \'coc-pairs',
-            \]
+:lua << EOF
+    local nvim_lsp = require('lspconfig')
+    local on_attach = function(_, bufnr)
+        require('completion').on_attach()
+    end
+    local servers = {'clangd'}
+    for _, lsp in ipairs(servers) do
+        nvim_lsp[lsp].setup {
+            on_attach = on_attach,
+        }
+    end
+EOF
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-    " Recently vim can merge signcolumn and number column into one
-    set signcolumn=number
-else
-    set signcolumn=yes
-endif
+:lua << EOF
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        -- Enable underline, use default values
+        underline = true,
+        -- Enable virtual text, override spacing to 4
+        virtual_text = {
+            spacing = 4,
+            prefix = ' '
+            },
+        update_in_insert=true,
+        signs = function(bufnr, client_id)
+        local ok, result = pcall(vim.api.nvim_buf_get_var, bufnr, 'show_signs')
+            -- No buffer local variable set, so just enable by default
+            if not ok then
+                return true
+            end
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+            return result
+        end,
+    }
+)
+EOF
+"}}}
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+"treesitter {{{
 
-" Use <c-space> to trigger completion.
-if has('nvim')
-    inoremap <silent><expr> <c-space> coc#refresh()
-else
-    inoremap <silent><expr> <c-@> coc#refresh()
-endif
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    custom_captures = {
+      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+      ["foo.bar"] = "Identifier",
+    },
+  },
+}
+EOF
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+}
+EOF
+"}}}
 
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    elseif (coc#rpc#ready())
-        call CocActionAsync('doHover')
-    else
-        execute '!' . &keywordprg . " " . expand('<cword>')
-    endif
-endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
