@@ -75,10 +75,10 @@ alias ....='cd ..; cd ..; cd ..'
 alias r='./a.out'
 alias cpr='cd cp; r'
 alias vim='nvim'
+alias create_prob='$HOME/cp/create_problem.sh'
 
 export EDITOR='nvim'
 
 #syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
-
