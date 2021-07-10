@@ -50,7 +50,8 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 #bindsym $mod+Ctrl+m exec pavucontrol
 # Start Applications
 bindsym $mod+b exec firefox
-bindsym $mod+f exec nemo
+# bindsym $mod+f exec alacritty -e 'ranger'
+bindsym $mod+f exec nautilus
 bindsym $mod+m exec vlc
 
 # change focus
@@ -169,6 +170,7 @@ for_window [class="Manjaro-hello"] floating enable
 for_window [class="Manjaro Settings Manager"] floating enable border normal
 for_window [title="MuseScore: Play Panel"] floating enable
 for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="Org.gnome.Nautilus"] border normal
 for_window [class="Oblogout"] fullscreen enable
 for_window [class="octopi"] floating enable
 for_window [title="About Pale Moon"] floating enable
