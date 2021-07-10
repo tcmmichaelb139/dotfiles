@@ -20,7 +20,7 @@ window:
     y: 0
 
   dynamic_padding: false
-  decorations: none
+  # decorations: none
 
 scrolling:
   history: 10000
@@ -35,8 +35,8 @@ draw_bold_text_with_bright_colors: true
 font:
   # The normal (roman) font face to use.
   normal:
-    family: Fixedsys Excelsior 3.01
-    style: normal
+    family: Fixedsys Excelsior 
+    style: Regular
     
     # normal:
     #   family: Source Code Pro
@@ -63,7 +63,7 @@ font:
   # # OS X only: use thin stroke font rendering. Thin strokes are suitable
   # # for retina displays, but for non-retina you probably want this set to
   # # false.
-  use_thin_strokes: true
+  use_thin_strokes: false
 
 
 # Use custom cursor colors. If true, display the cursor in the cursor.foreground
@@ -99,25 +99,6 @@ colors:
     magenta: '0xbb9af7'
     cyan:    '0x0db9d7'
     white:   '0xacb0d0'
-      # ONEDARK
-      # primary:
-      #   background: '#282c34'
-      #   foreground: '#abb2bf'
-      # cursor:
-      #   text:       CellBackground
-      #   #cursor:     '#528bff' # syntax-cursor-color
-      # selection:
-      #   text:       CellForeground
-      #   background: '#3e4451' # syntax-selection-color
-      # normal:
-      #   black:      '#5c6370' # mono-3
-      #   red:        '#e06c75' # red 1
-      #   green:      '#98c379'
-      #   yellow:     '#e5c07b' # orange 2
-      #   blue:       '#61afef'
-      #   magenta:    '#c678dd'
-      #   cyan:       '#56b6c2'
-      #   white:      '#828997' # mono-2# Values for `action`:
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
 
