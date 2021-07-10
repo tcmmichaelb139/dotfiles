@@ -6,7 +6,7 @@
 
 align=center
 separator=false
-color=#d3d9e3
+color=#a9b1d6
 separator_block_width=15
 markup=pango
 border_top=1
@@ -35,7 +35,7 @@ border_left=0
 command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/temperature/temperature
 label=<span color="#f7768e">TEMP: </span>
 interval=10
-border=##f7768e
+border=#f7768e
 
 [cpu_usage]
 command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/cpu_usage/cpu_usage
@@ -50,7 +50,8 @@ interval=30
 border=#7aa2f7
 
 [time]
+command=/home/tcmb139/.config/i3blocks/i3blocks-contrib/time/time
 label=<span color='#73daca'> </span>
 border=#73daca
-command=date
+STRFTIME_FORMAT=%Y-%m-%d %H:%M:%S
 interval=1
