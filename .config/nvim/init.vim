@@ -5,52 +5,51 @@ call plug#begin()
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-commentary'                             " better commenting
 
 Plug 'ThePrimeagen/vim-be-good'
 
+" Plug 'dstein64/vim-startuptime'
 Plug 'tweekmonster/startuptime.vim'
 
 call plug#end()
 "}}}
 
 "" ------------------ general config ------------------- {{{"
-filetype plugin indent on
 set termguicolors                                                   " opaque background
+set number                                                          " enables numbers to the left
+set relativenumber                                                  " sets lines above and below to amount away from current line
+set nohlsearch incsearch smartcase                                  " highlight text which searching
 set clipboard+=unnamedplus                                          " use system clipboard by defaul
+set hidden
 set tabstop=4 softtabstop=4 shiftwidth=4 autoindent                 " tabs indents
 set expandtab
-set noeb                                                   " no error bells
-set scrolloff=10                                                    " scrolls the hole page when at the 10 lines from the bottom
-set nohlsearch incsearch smartcase                                  " highlight text which searching
-set number                                                          " enables numbers to the left
+set noeb                                                             " no error bells
+set scrolloff=15                                                    " scrolls the hole page when at the 10 lines from the bott
 set nowrap                                                          " no wrapping when cursor gets to the end of the page
 set noswapfile nobackup undofile undodir=~/.cache/nvim/undodir                " no backup file and creates an undodir for all undos
-set relativenumber                                                  " sets lines above and below to amount away from current line
 set completeopt-=preview                                            " for YCM doesn't really do anything
-set cursorline                                                      " sets current line number instead of 0
 set splitright splitbelow                                           " open split to right and bottom
-set noshowmode noshowcmd                                            " doesn't show current mode and last command
-set encoding=utf-8                                                  " for vim, nvim has it by default
+set noshowmode                                                      " doesn't show current mode and last commandk
 set backspace=indent,eol,start                                      " sensible backspace
-set emoji                                                           " enables emojis
-set conceallevel=2                                                  " do it doesn't break indentation plugin
-set showtabline=2                                                   " always show tablines
+set encoding=utf-8                                                  " for vim, nvim has it by default
 set title
 set mouse=a
 set foldmethod=marker
 set nocursorline
 set nocursorcolumn
 
-set nobackup
 set nowritebackup
-set cmdheight=1
-set updatetime=200
+set cmdheight=2
+set updatetime=50
 set shortmess+=c
 set signcolumn=yes
+
+set timeoutlen=1000
+set ttimeoutlen=0
+set lazyredraw
 
 set cot=menuone,noinsert,noselect shm+=c
 "}}}
@@ -76,6 +75,7 @@ let s:visual    = { "gui": "#32344a", "cterm": "237" }
 let s:comment   = { "gui": "#565f89", "cterm": "" }
 let s:black     = { "gui": "#414868", "cterm": "" }
 let s:bg        = { "gui": "#24283b", "cterm": "" }
+let s:popupbg   = { "gui": "#1b1e2e", "cterm": "" }
 let s:nbg       = { "gui": "#1a1b26", "cterm": ""}
 
 let s:check     = { "gui": "#ffffff", "cterm": "" }
@@ -91,6 +91,7 @@ function! s:h(group, style)
         " \ "cterm="   (has_key(a:style, "cterm") ? a:style.cterm    : "NONE")
 endfunction
 
+call s:h("Normal", { "fg": s:fg })
 call s:h("Comment", { "fg": s:comment, "gui": "italic"}) ", "cterm": "italic" }) " any comment
 call s:h("Constant", { "fg": s:number }) " any constant
 call s:h("String", { "fg": s:strclass }) " a string constant: "this is a string"
@@ -98,8 +99,8 @@ call s:h("Character", { "fg": s:strclass }) " a character constnt: 'c', '\n'
 call s:h("Number", { "fg": s:number }) " a number constant: 234, 0xff
 call s:h("Boolean", { "fg": s:number }) " a boolean constant: TRUE, false
 call s:h("Float", { "fg": s:number }) " a floating point constant: 2.3e10
-call s:h("Identifier", { "fg": s:blue }) " any variable name
-call s:h("Function", { "fg": s:cyan }) " function name (also: methods for classes)
+call s:h("Identifier", { "fg": s:fg }) " any variable name
+call s:h("Function", { "fg": s:blue }) " function name (also: methods for classes)
 call s:h("Statement", { "fg": s:magenta }) " any statement
 call s:h("Conditional", { "fg": s:magenta }) " if, then, else, endif, switch, etc.
 call s:h("Repeat", { "fg": s:magenta }) " for, do, while, etc.
@@ -112,14 +113,11 @@ call s:h("Include", { "fg": s:cyan }) " preprocessor #include
 call s:h("Define", { "fg": s:cyan }) " preprocessor #define
 call s:h("Macro", { "fg": s:magenta }) " same as Define
 call s:h("PreCondit", { "fg": s:blue }) " preprocessor #if, #else, #endif, etc.
-call s:h("Type", { "fg": s:blue }) " int, long, char, etc.
+call s:h("Type", { "fg": s:magenta }) " int, long, char, etc.
 call s:h("StorageClass", { "fg": s:magenta }) " static, register, volatile, etc.
 call s:h("Structure", { "fg": s:blue }) " struct, union, enum, etc.
 call s:h("Typedef", { "fg": s:cyan }) " A typedef
-call s:h("Special", { "fg": s:blue }) " any special symbol
-call s:h("SpecialChar", { "fg": s:number }) " special character in a constant
-call s:h("Tag", {}) " you can use CTRL-] on this
-call s:h("Delimiter", {}) " character that needs attention
+call s:h("Special", { "fg": s:number }) " any special symbol
 call s:h("SpecialComment", { "fg": s:comment }) " special things inside a comment
 call s:h("Debug", {}) " debugging statements
 call s:h("Underlined", { "gui": "underline" }) " text that stands out, HTML links
@@ -131,6 +129,7 @@ call s:h("Todo", { "fg": s:magenta }) " anything that needs extra attention; mos
 call s:h("ColorColumn", {}) " used for the columns set with 'colorcolumn'
 call s:h("Conceal", {}) " placeholder characters substituted for concealed text (see 'conceallevel')
 call s:h("Cursor", {}) " the character under the cursor
+call s:h("CursorLine", {})
 call s:h("CursorIM", {}) " like Cursor, but used when in IME mode
 call s:h("CursorColumn", {}) " the screen column that the cursor is in when 'cursorcolumn' is set
 call s:h("Directory", { "fg": s:blue }) " directory names (and other special names in listings)
@@ -141,28 +140,27 @@ call s:h("DiffText", { "bg": s:yellow, "fg": s:black }) " diff mode: Changed tex
 call s:h("ErrorMsg", { "fg": s:red }) " error messages on the command line
 call s:h("VertSplit", { "fg": s:nbg }) " the column separating vertically split windows
 call s:h("Folded", { "fg": s:comment }) " line used for closed folds
-call s:h("FoldColumn", {}) " 'foldcolumn'
+call s:h("FoldColumn", { "fg": s:comment }) " 'foldcolumn'
 call s:h("SignColumn", {}) " column where signs are displayed
 call s:h("IncSearch", { "fg": s:yellow, "bg": s:comment }) " 'incsearch' highlighting; also used for the text replaced with ":s///c"
 call s:h("LineNr", { "fg": s:comment }) " Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-call s:h("CursorLineNr", {}) " Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+call s:h("CursorLineNr", { "bg": s:bg }) " Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
 call s:h("MatchParen", { "fg": s:blue, "gui": "underline"}) " The character under the cursor or just before it, if it is a paired bracket, and its match.
-call s:h("ModeMsg", {}) " 'showmode' message (e.g., "-- INSERT --")
+call s:h("ModeMsg", {}) " 'showmode' message (e.g., -- INSERT --)
 call s:h("MoreMsg", {}) " more-prompt
 call s:h("NonText", { "fg": s:magenta }) " '~' and '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line).
-call s:h("Pmenu", {}) " Popup menu: normal item.
-call s:h("PmenuSel", {}) " Popup menu: selected item.
+call s:h("Pmenu", { "bg": s:popupbg }) " Popup menu: normal item.
+call s:h("PmenuSel", { "fg": s:magenta, "bg": s:popupbg }) " Popup menu: selected item.
 call s:h("PmenuSbar", {}) " Popup menu: scrollbar.
-call s:h("PmenuThumb", { "bg": s:white }) " Popup menu: Thumb of the scrollbar.
+call s:h("PmenuThumb", { "bg": s:fg }) " Popup menu: Thumb of the scrollbar.
 call s:h("Question", { "fg": s:magenta }) " hit-enter prompt and yes/no questions
 call s:h("QuickFixLine", {}) " Current quickfix item in the quickfix window.
 call s:h("Search", { "fg": s:black, "bg": s:yellow }) " Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
 call s:h("SpecialKey", {}) " Meta and special keys listed with ":map", also for text used to show unprintable characters in the text, 'listchars'. Generally: text that is displayed differently from what it really is.
 call s:h("SpellBad", { "fg": s:red, "gui": "underline" }) " Word that is not recognized by the spellchecker. This will be combined with the highlighting used otherwise.
-call s:h("SpellCap", { "fg": s:number }) " Word that should start with a capital. This will be combined with the highlighting used otherwise.
 call s:h("SpellLocal", {}) " Word that is recognized by the spellchecker as one that is used in another region. This will be combined with the highlighting used otherwise.
 call s:h("SpellRare", {}) " Word that is recognized by the spellchecker as one that is hardly ever used. spell This will be combined with the highlighting used otherwise.
-call s:h("StatusLine", { "fg": s:fg}) " status line of current window
+call s:h("StatusLine", { "fg": s:fg, "bg": s:bg}) " status line of current window
 call s:h("StatusLineNC", { "fg": s:comment }) " status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
 call s:h("StatusLineTerm", { "fg": s:fg }) " status line of current :terminal window
 call s:h("StatusLineTermNC", { "fg": s:comment }) " status line of non-current :terminal window
@@ -325,8 +323,6 @@ augroup END
 " }}} 
 
 inoremap {<Enter> {<CR>}<Esc>O
-inoremap {{ {
-inoremap {} {}
 
 "movement keybinds
 nnoremap <leader>h :wincmd h<CR>
@@ -363,6 +359,10 @@ vnoremap K :m '>-2<CR>gv=gv
 "Ctrl+backspace
 noremap! <C-BS> <C-w>
 noremap! <C-h> <C-w>
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 "}}}
 
 "lsp config {{{
@@ -391,8 +391,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         -- Enable virtual text, override spacing to 4
         virtual_text = {
             spacing = 4,
-            prefix = ' '
-            },
+            prefix = ' ',
+        },
         update_in_insert=true,
         signs = function(bufnr, client_id)
         local ok, result = pcall(vim.api.nvim_buf_get_var, bufnr, 'show_signs')
@@ -405,35 +405,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         end,
     }
 )
-EOF
-"}}}
-
-"treesitter {{{
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-    custom_captures = {
-      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-      ["foo.bar"] = "Identifier",
-    },
-  },
-}
-EOF
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
-    },
-  },
-}
 EOF
 "}}}
 
