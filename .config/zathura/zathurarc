@@ -1,0 +1,13 @@
+set statusbar-h-padding 0
+set statusbar-v-padding 0
+set page-padding 1
+map i recolor
+
+set default-bg              "#24283b"
+set default-fg              "#a9b1d6"
+set completion-bg           "#24283b"
+set completion-fg           "#bb9af7"
+set input-bg                "#24283b"
+set input-fg                "#a9b1d6"
+set statusbar-bg            "#24283b"
+set statusbar-fg            "#a9b1d6"
