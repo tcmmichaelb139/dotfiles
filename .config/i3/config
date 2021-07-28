@@ -20,6 +20,7 @@ bindsym $alt+q kill
 
 # start program launcher
 bindsym $mod+space exec dmenu_run -h 20
+bindsym $mod+Shift+space exec passmenu
 
 # Printscrene
 bindsym Print exec flameshot gui
@@ -33,7 +34,7 @@ bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 2%- && pkill -R
 bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+1 i3blocks
 
 # Start Applications
-bindsym $mod+b exec firefox
+bindsym $mod+b exec qutebrowser
 bindsym $mod+f exec pcmanfm
 
 # change focus
@@ -113,11 +114,13 @@ bindsym $alt+Shift+9 move container to workspace $ws9
 bindsym $alt+Shift+0 move container to workspace $ws10
 
 # Open applications on specific workspaces
+assign [class="Xournalpp"] $ws4
+assign [class="Zathura"] $ws5
 assign [class="discord"] $ws7
 assign [class="vlc"] $ws8
-assign [class="obs"] $ws10
-assign [class="Xournalpp"] $ws4
+assign [class="Deadbeef"] $ws8
 assign [class="pomotroid"] $ws9
+assign [class="obs"] $ws10
 
 # for_window [title="Alacritty"] border normal
 for_window [class="Lxappearance"] floating enable 
@@ -129,10 +132,10 @@ bindsym $mod+Shift+r restart
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore; sleep 1
-exec --no-startup-id nm-applet
+# exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id picom -f
-exec --no-startup-id pomotroid
+exec --no-startup-id autotiling
 
 # Colors
 set $yellow     #e0af68
@@ -146,7 +149,7 @@ set $bg         #24283b
 set $fg         #a9b1d6
 
 bar {
-    position bottom
+    # position bottom
     position top
     bindsym button4         nop
     bindsym button5         nop
@@ -186,12 +189,11 @@ client.urgent            $bg_focus    $bg_focus    $fg_focus    $bg_focus
 ### settings for i3-gaps: ###
 #############################
 
-for_window [class="^.*"] border pixel 5
-gaps inner 5
+for_window [class="^.*"] border pixel 0
+gaps inner 10
 gaps outer 0
 default_border pixel
 default_floating_border pixel
-border_radius 2
 hide_edge_borders both
 
 # smart_gaps on
