@@ -21,7 +21,6 @@ c.completion.cmd_history_max_items = 500
 c.downloads.location.directory = "$HOME/Downloads"
 c.downloads.position = "bottom"    
 
-
 # set dark mode
 c.colors.webpage.preferred_color_scheme = "dark"
 
@@ -36,11 +35,11 @@ c.fonts.statusbar = '9pt "Fira Code"'
 base00 = "#24283b"
 base01 = "#24283b"
 base02 = "#1a1b26"
-base03 = "#24283b" # not actually used
+base03 = "#1a1b26" 
 base04 = "#a9b1d6"
 base05 = "#a9b1d6"
 base06 = "#a9b1d6"
-base07 = "#a9b1d6" # not actaully used
+base07 = "#2ac3de" # not actaully used
 base08 = "#f7768e"
 base09 = "#bb9af7"
 base0A = "#414868"
@@ -135,14 +134,16 @@ c.colors.downloads.stop.bg = base0C
 c.colors.downloads.error.fg = base08
 
 # Font color for hints.
-c.colors.hints.fg = base00
+c.colors.hints.fg = base04
 
 # Background color for hints. Note that you can use a `rgba(...)` value
 # for transparency.
-c.colors.hints.bg = base0A
+c.colors.hints.bg = base03
 
 # Font color for the matched part of hints.
-c.colors.hints.match.fg = base05
+c.colors.hints.match.fg = base0F
+
+c.hints.border = base03
 
 # Text color for the keyhint widget.
 c.colors.keyhint.fg = base05
